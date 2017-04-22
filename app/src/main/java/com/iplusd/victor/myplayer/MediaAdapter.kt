@@ -1,17 +1,26 @@
 package com.iplusd.victor.myplayer
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.view_media_item.view.*
+import kotlin.properties.Delegates
 
 /**
  * Created by victor on 22/4/17.
  *
  */
 
-class MediaAdapter(val data: ArrayList<Item>, val listener: (Item) -> Unit) : RecyclerView.Adapter<MediaAdapter.RowViewHolder>() {
+class MediaAdapter(val listener: (Item) -> Unit) : RecyclerView.Adapter<MediaAdapter.RowViewHolder>() {
+
+//    var data: List<Item> = emptyList()
+    var data by Delegates.observable(emptyList()) {
+        p, old:List<Item>, new:List<Item> -> { notifyDataSetChanged() }
+    }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
         val view = parent.inflate(R.layout.view_media_item)
