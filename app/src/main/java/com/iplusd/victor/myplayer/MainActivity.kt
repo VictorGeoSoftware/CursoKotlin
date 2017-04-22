@@ -20,22 +20,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-//    val adapter = MediaAdapter{showMyToast(it.title)}
-    val adapter = MediaAdapter{
+    val adapter = MediaAdapter {
         startActivity<DetailActivity>(DetailActivity.EXTRA_ITEM_ID to it.id)
     }
-
-    val f: (Int) -> Int = { x -> x * x }
-    // ----- observable
-    val observedNumber by Delegates.observable(0) { // ------> el 0 es el valor con el que inicializas la variable
-        p, old, new -> Log.d("CursoKotlin", "old value: $old, - new value: $new")
-    }
-    // ----- vetoable :: impide que una variable se seté por una determinada condición
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         recycler.adapter = adapter
 
@@ -51,14 +42,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         progress.visible(true)
-        dataAsync {items ->
-            adapter.data = when (item.itemId) {
-                R.id.filter_photos -> items.filter { it.type == Item.Type.PHOTO }
-                R.id.filter_videos -> items.filter { it.type == Item.Type.VIDEO }
-                else -> items
-            }
 
-            progress.visible(false)
+        val filter = when (item.itemId) {
+            R.id.filter_photos -> Filter.ByType(Item.Type.PHOTO)
+            R.id.filter_videos -> Filter.ByType(Item.Type.PHOTO)
+            else -> Filter.None
+        }
+
+        MediaProvider.dataAsync { items ->
+            adapter.data = when(filter) {
+                is Filter.ByType -> items.filter { it.type == filter.type }
+                is Filter.None -> items
+            }
         }
 
         return true
