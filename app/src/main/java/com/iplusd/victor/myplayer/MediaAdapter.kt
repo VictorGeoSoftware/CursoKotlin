@@ -13,7 +13,10 @@ import kotlin.properties.Delegates
  *
  */
 
-class MediaAdapter(val listener: (Item) -> Unit) : RecyclerView.Adapter<MediaAdapter.RowViewHolder>() {
+typealias Listener = (Item) -> Unit
+
+//class MediaAdapter(val listener: (Item) -> Unit) : RecyclerView.Adapter<MediaAdapter.RowViewHolder>() {
+class MediaAdapter(val listener: Listener) : RecyclerView.Adapter<MediaAdapter.RowViewHolder>() {
 
 //    var data: List<Item> = emptyList()
     var data by Delegates.observable(emptyList()) {
