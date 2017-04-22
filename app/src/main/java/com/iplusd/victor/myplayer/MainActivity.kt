@@ -8,6 +8,7 @@ import android.view.MenuItem
 import com.iplusd.victor.myplayer.MediaProvider.dataAsync
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
+import org.jetbrains.anko.startActivity
 
 object MyObject //----> clase que sólo tiene una instancia => singelton
 
@@ -19,7 +20,10 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    val adapter = MediaAdapter{showMyToast(it.title)}
+//    val adapter = MediaAdapter{showMyToast(it.title)}
+    val adapter = MediaAdapter{
+        startActivity<DetailActivity>(DetailActivity.EXTRA_ITEM_ID to it.id)
+    }
 
     val f: (Int) -> Int = { x -> x * x }
     // ----- observable

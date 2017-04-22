@@ -13,7 +13,7 @@ fun text1(view: View) {
     val item: Item? = null
     item?.title
 
-    val nonNullItem:Item = item ?: Item("It1", "url", Item.Type.PHOTO)  //":?"-> operator Elvis, por el flequillo y los ojos :-D
+    val nonNullItem:Item = item ?: Item(0, "It1", "url", Item.Type.PHOTO)  //":?"-> operator Elvis, por el flequillo y los ojos :-D
     val title: String = item?.title ?: "Valor alternativo"
     val titleDangerous: String = item!!.title // -----> estoy seguro que no va a ser null
 
