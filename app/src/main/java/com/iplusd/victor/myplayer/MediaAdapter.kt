@@ -3,7 +3,6 @@ package com.iplusd.victor.myplayer
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.view_media_item.view.*
 
@@ -12,7 +11,7 @@ import kotlinx.android.synthetic.main.view_media_item.view.*
  *
  */
 
-class MediaAdapter(val data: ArrayList<Item>) : RecyclerView.Adapter<MediaAdapter.RowViewHolder>() {
+class MediaAdapter(val data: ArrayList<Item>, val listener: (Item) -> Unit) : RecyclerView.Adapter<MediaAdapter.RowViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
         val view = parent.inflate(R.layout.view_media_item)
@@ -21,46 +20,20 @@ class MediaAdapter(val data: ArrayList<Item>) : RecyclerView.Adapter<MediaAdapte
 
     override fun onBindViewHolder(holder: RowViewHolder, position: Int) {
         holder.bind(data[position])
+        holder.itemView.setOnClickListener{ listener(data[position]) }
     }
 
     override fun getItemCount() = data.size
 
 
     class RowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-//        fun bind(item: Item) = with(itemView) {
-//                media_title.text = item.title
-//                media_thumb.loadUrl(item.url)
-//                media_video_indicator.visible(item.type == Item.Type.VIDEO)
-//                setOnClickListener { toast(item.title) }
-//            }
-
         fun bind(item: Item) {
-            val textView = TextView(itemView.context).apply {
-                text = "oli"
-                visible(true)
-                textSize = 20f
-
-                // devuelve el correpondiente TextView
-            }
-
-
-//        textView.text = "oli"
-//        textView.visible(true)
-//        textView.textSize = 20
-
-
-            val result = with(itemView) {
+            with(itemView) {
                 media_title.text = item.title
                 media_thumb.loadUrl(item.url)
                 media_video_indicator.visible(item.type == Item.Type.VIDEO)
-                setOnClickListener { toast(item.title) }
-                "Puesto!"
             }
-
-//            result -> devuelve la última línea del result
         }
-
-
     }
+
 }
