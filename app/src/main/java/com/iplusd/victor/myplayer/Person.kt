@@ -6,20 +6,17 @@ package com.iplusd.victor.myplayer
  */
 
 
-class Person(name:String, age:Int) {
-    var name = name
-    get() = "Name : $field"
-    set(value) {
-        if (value.isNotEmpty()) {
-            field = value
-        }
-    }
+interface Person {
+    val name: String
+    val age: Int
 
-    var age = age
+    fun getDescription() = "Name: $name, age: $age"
 }
 
+class Developer(override val name: String, override val age: Int) : Person
+
 fun text() {
-    val person = Person("Víctor", 31)
+    val person = Developer("Víctor", 34)
     val name = person.name
-    person.name = "Alexis"
+    person.getDescription()
 }
