@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import kotlinx.android.synthetic.main.view_media_item.view.*
 
 /**
  * Created by victor on 22/4/17.
@@ -26,15 +27,13 @@ class MediaAdapter(val data: ArrayList<Item>) : RecyclerView.Adapter<MediaAdapte
 
 
     class RowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title = itemView.find<TextView>(R.id.media_title)
-        val thumb = itemView.find<ImageView>(R.id.media_thumb)
-        val mediaIndicator = itemView.find<ImageView>(R.id.media_video_indicator)
 
         fun bind(item: Item) {
-            title.text = item.title
-            thumb.loadUrl(item.url)
-            mediaIndicator.visible(Item.Type.VIDEO == Item.Type.VIDEO)
+            itemView.media_title.text = item.title
+            itemView.media_thumb.loadUrl(item.url)
+            itemView.media_video_indicator.visible(item.type == Item.Type.VIDEO)
             itemView.setOnClickListener { toast(item.title) }
+
         }
     }
 }
