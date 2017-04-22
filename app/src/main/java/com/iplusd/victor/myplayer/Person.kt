@@ -5,34 +5,21 @@ package com.iplusd.victor.myplayer
  *
  */
 
-// Si no se pone val/var, no lo toma como campo!!
-open class Person(val name:String, val age:Int)
 
-// ------ Clase hija
-class Developer(name:String) : Person(name, 24)
-
-// ------ Clase hija
-class Developer1(val name:String = "", val age: Int = 20)
-
-
-// ------ Clase hija personalizada
-class MyClass {
-    val name:String
-    val age:Int
-
-    constructor(name:String) {
-        this.name = name
-        this.age = 20
+class Person(name:String, age:Int) {
+    var name = name
+    get() = "Name : $field"
+    set(value) {
+        if (value.isNotEmpty()) {
+            field = value
+        }
     }
 
-    constructor(age:Int) {
-        this.name = "Nadie"
-        this.age = age
-    }
+    var age = age
 }
 
-fun test() {
-    val person = Person("Name", 20)
-    person.name
-    val myVal = MyClass(age = 25)
+fun text() {
+    val person = Person("Víctor", 31)
+    val name = person.name
+    person.name = "Alexis"
 }
