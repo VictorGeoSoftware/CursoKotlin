@@ -8,7 +8,16 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
 
+object MyObject //----> clase que sólo tiene una instancia => singelton
+
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        val x = 20
+        val REQUEST_CAMERA = "REQUEST_CAMERA"
+    }
+
+
     val adapter = MediaAdapter{showMyToast(it.title)}
 
     val f: (Int) -> Int = { x -> x * x }
@@ -25,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         recycler.adapter = adapter
 
-        adapter.data = fetchMedia()
+        adapter.data = MediaProvider.fetchMedia()
 
 //        val lazyVar by lazy {  }  -----> También para variables
     }
@@ -36,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val media = fetchMedia()
+        val media = MediaProvider.fetchMedia()
 
         adapter.data = when (item.itemId) {
             R.id.filter_photos -> media.filter { it.type == Item.Type.PHOTO }
