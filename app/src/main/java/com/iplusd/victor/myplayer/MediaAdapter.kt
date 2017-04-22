@@ -28,12 +28,39 @@ class MediaAdapter(val data: ArrayList<Item>) : RecyclerView.Adapter<MediaAdapte
 
     class RowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: Item) {
-            itemView.media_title.text = item.title
-            itemView.media_thumb.loadUrl(item.url)
-            itemView.media_video_indicator.visible(item.type == Item.Type.VIDEO)
-            itemView.setOnClickListener { toast(item.title) }
+//        fun bind(item: Item) = with(itemView) {
+//                media_title.text = item.title
+//                media_thumb.loadUrl(item.url)
+//                media_video_indicator.visible(item.type == Item.Type.VIDEO)
+//                setOnClickListener { toast(item.title) }
+//            }
 
+        fun bind(item: Item) {
+            val textView = TextView(itemView.context).apply {
+                text = "oli"
+                visible(true)
+                textSize = 20f
+
+                // devuelve el correpondiente TextView
+            }
+
+
+//        textView.text = "oli"
+//        textView.visible(true)
+//        textView.textSize = 20
+
+
+            val result = with(itemView) {
+                media_title.text = item.title
+                media_thumb.loadUrl(item.url)
+                media_video_indicator.visible(item.type == Item.Type.VIDEO)
+                setOnClickListener { toast(item.title) }
+                "Puesto!"
+            }
+
+//            result -> devuelve la última línea del result
         }
+
+
     }
 }

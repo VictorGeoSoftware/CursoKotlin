@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         recycler.adapter = MediaAdapter(fetchMedia())
 
+
     }
 
 
