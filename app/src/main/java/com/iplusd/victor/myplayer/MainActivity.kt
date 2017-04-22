@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.iplusd.victor.myplayer.MediaProvider.dataAsync
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
 
@@ -34,9 +35,9 @@ class MainActivity : AppCompatActivity() {
 
         recycler.adapter = adapter
 
-        adapter.data = MediaProvider.fetchMedia()
-
-//        val lazyVar by lazy {  }  -----> También para variables
+        dataAsync { items ->
+            adapter.data = items
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -45,12 +46,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val media = MediaProvider.fetchMedia()
+        progress.visible(true)
+        dataAsync {items ->
+            adapter.data = when (item.itemId) {
+                R.id.filter_photos -> items.filter { it.type == Item.Type.PHOTO }
+                R.id.filter_videos -> items.filter { it.type == Item.Type.VIDEO }
+                else -> items
+            }
 
-        adapter.data = when (item.itemId) {
-            R.id.filter_photos -> media.filter { it.type == Item.Type.PHOTO }
-            R.id.filter_videos -> media.filter { it.type == Item.Type.VIDEO }
-            else -> media
+            progress.visible(false)
         }
 
         return true

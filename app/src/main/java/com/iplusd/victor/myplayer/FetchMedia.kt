@@ -1,5 +1,8 @@
 package com.iplusd.victor.myplayer
 
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+
 /**
  * Created by victor! on 22/4/17.
  *
@@ -8,6 +11,16 @@ package com.iplusd.victor.myplayer
 
 object MediaProvider {
 
+    fun dataAsync(f:(List<Item>) -> Unit) {
+        doAsync {
+            val data = fetchMedia()
+            Thread.sleep(2000)
+
+            uiThread {
+                f(data)
+            }
+        }
+    }
     val data by lazy { fetchMedia() }  // hasta que no se pide, no se crea la vriable!!!
 
     fun fetchMedia2():ArrayList<Item> = arrayListOf(
