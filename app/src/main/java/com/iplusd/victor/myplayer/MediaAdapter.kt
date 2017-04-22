@@ -17,7 +17,8 @@ class MediaAdapter(val listener: (Item) -> Unit) : RecyclerView.Adapter<MediaAda
 
 //    var data: List<Item> = emptyList()
     var data by Delegates.observable(emptyList()) {
-        p, old:List<Item>, new:List<Item> -> { notifyDataSetChanged() }
+        p, old:List<Item>, new:List<Item> ->
+        run { notifyDataSetChanged() }
     }
 
 

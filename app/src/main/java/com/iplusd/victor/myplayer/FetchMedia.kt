@@ -17,7 +17,7 @@ fun fetchMedia2():ArrayList<Item> = arrayListOf(
         Item("Title10", "http://lorempixel.com/400/400/sports/10/", Item.Type.VIDEO)
 )
 
-fun fetchMedia(): List<Item> = (0..10).map {
+fun fetchMedia(): List<Item> = (1..10).map {
     Item(
             "Title $it",
             "http://lorempixel.com/400/400/sports/$it/",
