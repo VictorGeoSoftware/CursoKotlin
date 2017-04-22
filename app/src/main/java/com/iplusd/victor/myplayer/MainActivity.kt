@@ -8,9 +8,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    val title = "Título de prueba"
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,9 +19,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val reycler = findViewById(R.id.recycler) as RecyclerView
+        val text = recycler.find<TextView>(R.id.action0)
         reycler.adapter = MediaAdapter(fetchMedia())
 
+        // ------ funciones reified: inyectas clases!
+        startActivity<MainActivity>()
     }
 
-    fun showMyToast(title:String) = Toast.makeText(this, "El texto que pongo => ${title} <=", Toast.LENGTH_SHORT).show()
+
 }
